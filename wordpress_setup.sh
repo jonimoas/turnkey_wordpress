@@ -7,7 +7,7 @@ HOSTNAME=
 WORDPRESS_ROOT_PASS=
 
 #install php, nysql and libs
-apt install apache2 mariadb-server ghostscript libapache2-mod-php php curl php-gd php-bcmath php-curl php-imagick php-intl php-json php-mbstring php-mysql php-xml php-zip certbot -y
+apt install apache2 mariadb-server ghostscript libapache2-mod-php php curl php-gd php-bcmath php-curl php-imagick php-intl php-json php-mbstring php-mysql php-xml php-zip snapd -y
 read -p "Libs installed"
 
 #download and extract wordpress
@@ -49,5 +49,7 @@ mysql -uroot -p -e 'create database wordpress;'
 mysql -uroot -p -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'root'@'localhost' IDENTIFIED BY '$WORDPRESS_ROOT_PASS';"
 
 #certificates installation
+snap install --classic certbot
+ln -s /snap/bin/certbot /usr/bin/certbot
 certbot --apache
 read -p "installed certificates, setup complete"
